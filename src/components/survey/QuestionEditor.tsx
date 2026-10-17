@@ -1,3 +1,4 @@
+import { getTextDirection } from '../../utils/getTextDirection'
 import { TrashIcon } from '@radix-ui/react-icons'
 import { ActionIcon, Button, Checkbox, Fieldset, Group, Stack, Text, TextInput, Tooltip } from '@mantine/core'
 import type { SurveyWizardText } from '../../i18n/translations'
@@ -23,7 +24,7 @@ export function QuestionEditor({ question, text, onChange, labelError, optionsEr
         placeholder={text.untitledQuestion}
         value={question.label}
         onChange={(event) => onChange({ ...question, label: event.currentTarget.value })}
-        dir="auto"
+        dir={getTextDirection(question.label)}
       />
       <Checkbox
         label={text.answerRequired}
@@ -50,7 +51,7 @@ export function QuestionEditor({ question, text, onChange, labelError, optionsEr
                       ),
                     })
                   }}
-                  dir="auto"
+                  dir={getTextDirection(option.label)}
                   style={{ flex: '1 1 12rem' }}
                 />
                 <Tooltip label={text.removeOption}>
@@ -94,7 +95,7 @@ export function QuestionEditor({ question, text, onChange, labelError, optionsEr
             placeholder={text.inputPlaceholderExample}
             value={question.placeholder ?? ''}
             onChange={(event) => onChange({ ...question, placeholder: event.currentTarget.value })}
-            dir="auto"
+            dir={getTextDirection(question.placeholder ?? '')}
           />
           <Checkbox
             label={text.multilineAnswer}

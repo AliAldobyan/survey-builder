@@ -1,3 +1,4 @@
+import { getTextDirection } from '../../../utils/getTextDirection'
 import { useState } from 'react'
 import classes from './SurveySettings.module.css'
 import { SurveyTemplatePicker } from '../SurveyTemplatePicker'
@@ -40,14 +41,14 @@ export function SurveySettings({ text, form, language }: SurveySettingsProps) {
             {...form.getInputProps('title')}
             // Resolve the error text here so it follows the selected language.
             error={form.errors.title ? text.titleRequired : undefined}
-            dir="auto"
+            dir={getTextDirection(form.values.title, language === 'ar' ? 'rtl' : 'ltr')}
           />
           <Textarea
             label={text.surveyDescription}
             {...form.getInputProps('description')}
             autosize
             minRows={3}
-            dir="auto"
+            dir={getTextDirection(form.values.description, language === 'ar' ? 'rtl' : 'ltr')}
           />
           <Textarea
             label={text.confirmationMessage}
@@ -55,7 +56,7 @@ export function SurveySettings({ text, form, language }: SurveySettingsProps) {
             {...form.getInputProps('confirmationMessage')}
             autosize
             minRows={2}
-            dir="auto"
+            dir={getTextDirection(form.values.confirmationMessage, language === 'ar' ? 'rtl' : 'ltr')}
           />
         </Stack>
       </Tabs.Panel>

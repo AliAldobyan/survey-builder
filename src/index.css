@@ -4,7 +4,7 @@ body {
 }
 
 :root {
-  --survey-font-family: Arial, Helvetica, sans-serif;
+  --survey-font-family: 'IBM Plex Sans', Arial, sans-serif;
   --survey-brand-text: var(--mantine-color-brand-6);
 }
 
@@ -20,17 +20,16 @@ body {
   font-family: 'IBM Plex Sans Arabic', Arial, sans-serif;
 }
 
-/* Align field content with the interface language, including empty fields. */
-:root[lang='ar'] .mantine-Input-input {
-  direction: rtl;
-  text-align: right;
-}
-
-:root[lang='en'] .mantine-Input-input {
-  direction: ltr;
-  text-align: left;
+/* Field direction comes from its content, independently of the interface. */
+.mantine-Input-input {
+  direction: inherit;
+  text-align: start;
 }
 
 .mantine-InputWrapper-error {
   margin-block-start: 8px;
+}
+
+[lang='en'] {
+  font-family: 'IBM Plex Sans', Arial, sans-serif;
 }

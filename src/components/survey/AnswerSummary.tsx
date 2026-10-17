@@ -1,3 +1,4 @@
+import { getTextDirection } from '../../utils/getTextDirection'
 import { Checkbox, NativeSelect, Radio, Stack, Text, Textarea, TextInput } from '@mantine/core'
 import type { SurveyWizardText } from '../../i18n/translations'
 import type { SurveyAnswer, SurveyQuestion } from '../../types/survey'
@@ -18,15 +19,16 @@ export function AnswerSummary({ question, answer, text }: AnswerSummaryProps) {
   if (question.type === 'TEXT') {
     const value = answer?.type === 'TEXT' ? answer.value : ''
     return question.multiline ? (
-      <Textarea aria-label={label} value={value} placeholder={text.notAnswered} readOnly autosize minRows={3} dir="auto" />
+      <Textarea aria-label={label} value={value} placeholder={text.notAnswered} readOnly autosize minRows={3} dir={getTextDirection(value || question.label)} />
     ) : (
-      <TextInput aria-label={label} value={value} placeholder={text.notAnswered} readOnly dir="auto" />
+      <TextInput aria-label={label} value={value} placeholder={text.notAnswered} readOnly dir={getTextDirection(value || question.label)} />
     )
   }
 
   if (question.type === 'DDL') {
     return (
       <NativeSelect
+        dir={getTextDirection(question.label)}
         aria-label={label}
         disabled
         value={answer?.type === 'DDL' ? answer.optionId : ''}
@@ -69,7 +71,7 @@ export function AnswerSummary({ question, answer, text }: AnswerSummaryProps) {
   const file = metadata ? files.get(metadata.id) : undefined
   return (
     <Stack gap="xs">
-      <TextInput aria-label={label} readOnly value={metadata?.name ?? ''} placeholder={text.notAnswered} dir="auto" />
+      <TextInput aria-label={label} readOnly value={metadata?.name ?? ''} placeholder={text.notAnswered} dir={getTextDirection(metadata?.name || question.label)} />
       {metadata && <Text size="sm" c="dimmed">{Math.ceil(metadata.size / 1024)} KB</Text>}
       {file && isImageFile(file) && (
         <ImageThumbnail key={metadata?.id} file={file} alt={`${text.imagePreview}: ${file.name}`} />

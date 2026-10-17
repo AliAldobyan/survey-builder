@@ -1,3 +1,4 @@
+import { getTextDirection } from '../../utils/getTextDirection'
 import { Checkbox, NativeSelect, Radio, Stack, Textarea, TextInput } from '@mantine/core'
 import type { SurveyWizardText } from '../../i18n/translations'
 import type { SurveyQuestion } from '../../types/survey'
@@ -30,7 +31,7 @@ export function QuestionAnswer({ question, text, error }: QuestionAnswerProps) {
         }))}
         autosize
         minRows={3}
-        dir="auto"
+        dir={getTextDirection(value || question.label)}
       />
     ) : (
       <TextInput
@@ -42,7 +43,7 @@ export function QuestionAnswer({ question, text, error }: QuestionAnswerProps) {
         onChange={(event) => dispatch(setTextAnswer({
           questionId: question.id, value: event.currentTarget.value,
         }))}
-        dir="auto"
+        dir={getTextDirection(value || question.label)}
       />
     )
   }
@@ -69,6 +70,7 @@ export function QuestionAnswer({ question, text, error }: QuestionAnswerProps) {
   if (question.type === 'DDL') {
     return (
       <NativeSelect
+        dir={getTextDirection(question.label)}
         label={label}
         required={question.required}
         error={error}
