@@ -54,3 +54,10 @@ export type SurveySubmission = {
   questions: SurveyQuestion[]
   answers: Record<string, SurveyAnswer>
 }
+
+export type SurveyTemplate = {
+  settings: SurveySettings
+  id: string
+  name: { en: string; ar: string }
+  questions: SurveyQuestion[]
+}

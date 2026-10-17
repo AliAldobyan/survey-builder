@@ -24,6 +24,10 @@ const surveySlice = createSlice({
   name: 'survey',
   initialState,
   reducers: {
+    replaceQuestions(state, action: PayloadAction<SurveyQuestion[]>) {
+      state.questions = action.payload
+      state.answers = {}
+    },
     updateSettings(state, action: PayloadAction<Partial<SurveySettings>>) {
       Object.assign(state.settings, action.payload)
     },
@@ -104,7 +108,7 @@ const surveySlice = createSlice({
 })
 
 export const {
-  updateSettings, addQuestion, updateQuestion, removeQuestion, moveQuestion,
+  replaceQuestions, updateSettings, addQuestion, updateQuestion, removeQuestion, moveQuestion,
   setTextAnswer, setSingleChoiceAnswer, setMultipleChoiceAnswer, setAttachmentAnswer,
 } = surveySlice.actions
 export default surveySlice.reducer

@@ -1,0 +1,23 @@
+.tabList {
+  gap: 4px;
+  padding: 4px;
+  border: 1px solid var(--mantine-color-gray-3);
+  border-radius: var(--mantine-radius-md);
+}
+
+.tab {
+  min-height: 44px;
+  padding-inline: 12px;
+  color: var(--mantine-color-gray-7);
+  font-weight: 500;
+}
+
+.tab[data-active] {
+  background: var(--mantine-color-brand-1);
+  color: var(--mantine-color-brand-6);
+  font-weight: 700;
+}
+
+.tab[data-active]:hover {
+  background: var(--mantine-color-brand-1);
+}

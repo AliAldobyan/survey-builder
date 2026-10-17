@@ -10,13 +10,14 @@ import { useSurveyFiles } from './attachments/useSurveyFiles'
 import { validateAnswers } from './validateAnswers'
 import { buildSurveyPayload } from './buildSurveyPayload'
 import { useSubmitSurveyMutation } from '../../services/surveyApi'
-import type { SurveyWizardText } from '../../i18n/translations'
+import type { Language, SurveyWizardText } from '../../i18n/translations'
 
 type SurveyWizardProps = {
+  language: Language
   text: SurveyWizardText
 }
 
-export function SurveyWizard({ text }: SurveyWizardProps) {
+export function SurveyWizard({ text, language }: SurveyWizardProps) {
   const [activeStep, setActiveStep] = useState(0)
   const settingsForm = useSurveySettingsForm()
   const [showAnswerErrors, setShowAnswerErrors] = useState(false)
@@ -117,7 +118,7 @@ export function SurveyWizard({ text }: SurveyWizardProps) {
         else void handleStepChange(activeStep + 1)
       }}
     >
-      <Stack gap="xl">
+      <Stack gap={activeStep === 0 ? "md" : "xl"}>
         <Stepper
           active={activeStep}
           onStepClick={(step) => { void handleStepChange(step) }}
@@ -138,7 +139,7 @@ export function SurveyWizard({ text }: SurveyWizardProps) {
         </div>
 
         {activeStep === 0 && (
-          <SurveySettings text={text} form={settingsForm} />
+          <SurveySettings text={text} form={settingsForm} language={language} />
         )}
 
         {activeStep === 1 && showAnswerErrors && questions.length === 0 && (

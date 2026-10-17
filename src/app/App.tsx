@@ -29,7 +29,7 @@ function App() {
           <Title order={1}>{text.surveyBuilder}</Title>
           <Text c="dimmed">{text.description}</Text>
           <SurveyFilesProvider>
-            <SurveyWizard text={text.wizard} />
+            <SurveyWizard text={text.wizard} language={language} />
           </SurveyFilesProvider>
         </Stack>
       </Paper>

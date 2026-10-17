@@ -1,3 +1,4 @@
+import { surveyTemplates } from './surveyTemplates.ts'
 import { randomUUID } from 'node:crypto'
 import type { IncomingMessage, ServerResponse } from 'node:http'
 import type { Plugin } from 'vite'
@@ -9,7 +10,16 @@ function sendJson(response: ServerResponse, status: number, data: object) {
 
 async function handleSurveyRequest(request: IncomingMessage, response: ServerResponse, next: () => void) {
   // Let Vite handle requests that are not for this endpoint.
-  if (request.url?.split('?')[0] !== '/api/surveys') return next()
+  const path = request.url?.split('?')[0]
+  if (path === '/api/survey-templates') {
+    if (request.method !== 'GET') {
+      response.setHeader('Allow', 'GET')
+      return sendJson(response, 405, { message: 'Use GET to load templates' })
+    }
+    await new Promise((resolve) => setTimeout(resolve, 600))
+    return sendJson(response, 200, surveyTemplates)
+  }
+  if (path !== '/api/surveys') return next()
   if (request.method !== 'POST') {
     response.setHeader('Allow', 'POST')
     return sendJson(response, 405, { message: 'Use POST to submit a survey' })
