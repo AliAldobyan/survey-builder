@@ -38,7 +38,6 @@ export function SurveyQuestions({ text }: SurveyQuestionsProps) {
       dispatch(updateQuestion(question))
     } else {
       dispatch(addQuestion(question))
-
     }
     setEditor(null)
   }

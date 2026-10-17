@@ -88,11 +88,21 @@ export function QuestionEditor({ question, text, onChange, labelError, optionsEr
       )}
 
       {question.type === 'TEXT' && (
-        <Checkbox
-          label={text.multilineAnswer}
-          checked={question.multiline}
-          onChange={(event) => onChange({ ...question, multiline: event.currentTarget.checked })}
-        />
+        <Stack>
+          <TextInput
+            label={text.inputPlaceholder}
+            description={text.inputPlaceholderHint}
+            placeholder={text.inputPlaceholderExample}
+            value={question.placeholder ?? ''}
+            onChange={(event) => onChange({ ...question, placeholder: event.currentTarget.value })}
+            dir="auto"
+          />
+          <Checkbox
+            label={text.multilineAnswer}
+            checked={question.multiline}
+            onChange={(event) => onChange({ ...question, multiline: event.currentTarget.checked })}
+          />
+        </Stack>
       )}
     </Stack>
   )

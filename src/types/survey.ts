@@ -17,6 +17,7 @@ type ChoiceQuestion = BaseQuestion & {
 type TextQuestion = BaseQuestion & {
   type: 'TEXT'
   multiline: boolean
+  placeholder?: string
 }
 
 type AttachmentQuestion = BaseQuestion & {
@@ -27,3 +28,17 @@ type AttachmentQuestion = BaseQuestion & {
 export type SurveyQuestion = ChoiceQuestion | TextQuestion | AttachmentQuestion
 
 export type QuestionType = SurveyQuestion['type']
+
+export type AttachmentMetadata = {
+  id: string
+  name: string
+  size: number
+  type: string
+  lastModified: number
+}
+
+export type SurveyAnswer =
+  | { type: 'TEXT'; value: string }
+  | { type: 'DDL' | 'RADIO'; optionId: string }
+  | { type: 'MC'; optionIds: string[] }
+  | { type: 'ATTACHMENT'; file: AttachmentMetadata }

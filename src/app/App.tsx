@@ -1,5 +1,6 @@
 import { Badge, Button, Container, Group, Paper, Stack, Text, Title } from '@mantine/core'
 import { SurveyWizard } from '../components/survey/SurveyWizard'
+import { SurveyFilesProvider } from '../components/survey/attachments/SurveyFilesProvider'
 import { useLanguage } from '../i18n/useLanguage'
 
 function App() {
@@ -24,7 +25,9 @@ function App() {
           </Group>
           <Title order={1}>{text.surveyBuilder}</Title>
           <Text c="dimmed">{text.description}</Text>
-          <SurveyWizard text={text.wizard} />
+          <SurveyFilesProvider>
+            <SurveyWizard text={text.wizard} />
+          </SurveyFilesProvider>
         </Stack>
       </Paper>
     </Container>

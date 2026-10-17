@@ -1,10 +1,11 @@
 import { useCallback } from 'react'
 import { useSortable } from '@dnd-kit/react/sortable'
 import { useReducedMotion } from '@mantine/hooks'
-import { ActionIcon, Badge, Box, Group, Paper, Stack, Text, Tooltip } from '@mantine/core'
+import { ActionIcon, Badge, Group, Paper, Stack, Text, Tooltip } from '@mantine/core'
 import type { SurveyWizardText } from '../../i18n/translations'
 import type { SurveyQuestion } from '../../types/survey'
 import classes from './SortableQuestionCard.module.css'
+import { QuestionAnswer } from './QuestionAnswer'
 
 type SortableQuestionCardProps = {
   question: SurveyQuestion
@@ -76,25 +77,7 @@ export function SortableQuestionCard({
               </Tooltip>
             </Group>
           </Group>
-          <Text fw={600} dir="auto">{question.label || text.untitledQuestion}</Text>
-          {'options' in question ? (
-            <Group gap="xs">
-              {question.options.slice(0, 3).map((option) => (
-                <Badge key={option.id} variant="outline" color="gray" tt="none" fw={400}>
-                  {option.label || text.option}
-                </Badge>
-              ))}
-              {question.options.length > 3 && <Text size="xs" c="dimmed">+{question.options.length - 3}</Text>}
-            </Group>
-          ) : (
-            <Box p="xs" bg="gray.0" style={{ borderRadius: 'var(--mantine-radius-sm)' }}>
-              <Text size="sm" c="dimmed">
-                {question.type === 'TEXT'
-                  ? question.multiline ? text.longAnswerPreview : text.shortAnswerPreview
-                  : text.attachmentPreview}
-              </Text>
-            </Box>
-          )}
+          <QuestionAnswer question={question} text={text} />
         </Stack>
       </Paper>
     </li>

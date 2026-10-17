@@ -10,7 +10,7 @@ export function createQuestion(type: QuestionType): SurveyQuestion {
     case 'RADIO':
       return { ...base, type, options: [] }
     case 'TEXT':
-      return { ...base, type, multiline: false }
+      return { ...base, type, multiline: false, placeholder: '' }
     case 'ATTACHMENT':
       return { ...base, type }
   }
