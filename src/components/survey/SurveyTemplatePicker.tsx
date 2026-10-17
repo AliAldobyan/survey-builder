@@ -25,9 +25,10 @@ export function SurveyTemplatePicker({ text, language, onApplySettings }: Survey
 
   function applyTemplate() {
     if (!selectedTemplate) return
+    const content = selectedTemplate.content[language]
     // Copy cached API data before putting it in the editable survey draft.
-    dispatch(replaceQuestions(structuredClone(selectedTemplate.questions)))
-    onApplySettings(structuredClone(selectedTemplate.settings))
+    dispatch(replaceQuestions(structuredClone(content.questions)))
+    onApplySettings(structuredClone(content.settings))
     setConfirmOpen(false)
     setSelectedId(null)
     setApplied(true)

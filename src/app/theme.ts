@@ -7,7 +7,7 @@ export const brandColors = {
   white: '#ffffff',
 } as const
 
-const fontFamily = 'Arial, Helvetica, sans-serif'
+const fontFamily = 'var(--survey-font-family)'
 
 export const theme = createTheme({
   primaryColor: 'brand',
