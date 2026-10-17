@@ -1,6 +1,6 @@
 import { getTextDirection } from '../../utils/getTextDirection'
 import { TrashIcon } from '@radix-ui/react-icons'
-import { ActionIcon, Button, Checkbox, Fieldset, Group, Stack, Text, TextInput, Tooltip } from '@mantine/core'
+import { ActionIcon, Button, Checkbox, Fieldset, Group, Stack, Text, TextInput, Tooltip, useDirection } from '@mantine/core'
 import type { SurveyWizardText } from '../../i18n/translations'
 import type { SurveyQuestion } from '../../types/survey'
 
@@ -13,6 +13,8 @@ type QuestionEditorProps = {
 }
 
 export function QuestionEditor({ question, text, onChange, labelError, optionsError }: QuestionEditorProps) {
+  const { dir } = useDirection()
+
   return (
     <Stack>
       <TextInput
@@ -24,7 +26,7 @@ export function QuestionEditor({ question, text, onChange, labelError, optionsEr
         placeholder={text.untitledQuestion}
         value={question.label}
         onChange={(event) => onChange({ ...question, label: event.currentTarget.value })}
-        dir={getTextDirection(question.label)}
+        dir={getTextDirection(question.label, dir)}
       />
       <Checkbox
         label={text.answerRequired}
@@ -51,7 +53,7 @@ export function QuestionEditor({ question, text, onChange, labelError, optionsEr
                       ),
                     })
                   }}
-                  dir={getTextDirection(option.label)}
+                  dir={getTextDirection(option.label, dir)}
                   style={{ flex: '1 1 12rem' }}
                 />
                 <Tooltip label={text.removeOption}>
@@ -95,7 +97,7 @@ export function QuestionEditor({ question, text, onChange, labelError, optionsEr
             placeholder={text.inputPlaceholderExample}
             value={question.placeholder ?? ''}
             onChange={(event) => onChange({ ...question, placeholder: event.currentTarget.value })}
-            dir={getTextDirection(question.placeholder ?? '')}
+            dir={getTextDirection(question.placeholder ?? '', dir)}
           />
           <Checkbox
             label={text.multilineAnswer}

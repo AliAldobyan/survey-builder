@@ -109,3 +109,8 @@
     gap: 8px;
   }
 }
+
+:global([data-mantine-color-scheme='dark']) .sidebar {
+  background: var(--mantine-color-dark-6);
+  border-color: var(--mantine-color-brand-7);
+}

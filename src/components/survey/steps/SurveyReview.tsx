@@ -67,7 +67,7 @@ export function SurveyReview({ text, onEditSettings, onEditQuestions }: SurveyRe
           <Text component="blockquote" dir="auto" size="sm" className={classes.message}>
             {settings.confirmationMessage.trim() ? settings.confirmationMessage : text.notProvided}
           </Text>
-          <Button type="button" variant="light" size="xs" fullWidth onClick={onEditSettings}>
+          <Button type="button" variant="default" size="sm" fullWidth onClick={onEditSettings}>
             {text.editSettings}
           </Button>
         </aside>

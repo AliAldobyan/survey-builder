@@ -105,7 +105,7 @@ export const translations = {
   ar: {
     surveyConfiguration: "إعداد الاستبيان",
     surveyBuilder: "منشئ الاستبيانات",
-    description: "أنشئ استبيانًا للمبنى وخصّص إعداداته.",
+    description: "أنشئ استبيانًا وخصّص إعداداته.",
     switchLanguage: "English",
     lightTheme: "التبديل إلى المظهر الفاتح",
     darkTheme: "التبديل إلى المظهر الداكن",
@@ -172,7 +172,8 @@ export const translations = {
       chooseFile: "اختر صورة أو مستندًا",
       fileUploadHint:
         "PNG أو JPG أو GIF أو WebP أو PDF أو Word أو TXT. الحد الأقصى 10 ميجابايت.",
-      fileTypeError: "صيغة الملف غير مدعومة. اختر صورة أو مستندًا بإحدى الصيغ المسموح بها.",
+      fileTypeError:
+        "صيغة الملف غير مدعومة. اختر صورة أو مستندًا بإحدى الصيغ المسموح بها.",
       fileSizeError: "يجب ألا يتجاوز حجم الملف 10 ميجابايت.",
       removeFile: "حذف الملف",
       imagePreview: "معاينة الصورة",
