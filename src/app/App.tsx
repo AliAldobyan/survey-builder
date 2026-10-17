@@ -1,4 +1,5 @@
 import { Badge, Button, Container, Group, Paper, Stack, Text, Title } from '@mantine/core'
+import { SurveyWizard } from '../components/survey/SurveyWizard'
 import { useLanguage } from '../i18n/useLanguage'
 
 function App() {
@@ -6,7 +7,7 @@ function App() {
   const nextLanguage = language === 'en' ? 'ar' : 'en'
 
   return (
-    <Container component="main" size="sm" py="xl">
+    <Container component="main" size="md" py="xl">
       <Paper withBorder p="xl" radius="md">
         <Stack>
           <Group justify="space-between">
@@ -23,6 +24,7 @@ function App() {
           </Group>
           <Title order={1}>{text.surveyBuilder}</Title>
           <Text c="dimmed">{text.description}</Text>
+          <SurveyWizard text={text.wizard} />
         </Stack>
       </Paper>
     </Container>
