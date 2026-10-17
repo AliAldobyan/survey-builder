@@ -51,6 +51,7 @@ export function QuestionAnswer({ question, text, error }: QuestionAnswerProps) {
   if (question.type === 'RADIO') {
     return (
       <Radio.Group
+        dir={getTextDirection(question.label)}
         name={`answer-${question.id}`}
         label={label}
         required={question.required}
@@ -89,6 +90,7 @@ export function QuestionAnswer({ question, text, error }: QuestionAnswerProps) {
   if (question.type === 'MC') {
     return (
       <Checkbox.Group
+        dir={getTextDirection(question.label)}
         label={label}
         required={question.required}
         error={error}

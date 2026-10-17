@@ -42,7 +42,7 @@ export function AnswerSummary({ question, answer, text }: AnswerSummaryProps) {
 
   if (question.type === 'RADIO') {
     return (
-      <Radio.Group aria-label={label} value={answer?.type === 'RADIO' ? answer.optionId : ''}>
+      <Radio.Group dir={getTextDirection(question.label)} aria-label={label} value={answer?.type === 'RADIO' ? answer.optionId : ''}>
         <Stack gap="xs">
           {question.options.map((option) => (
             <Radio key={option.id} disabled value={option.id} label={<span dir="auto">{option.label}</span>} />
@@ -56,7 +56,7 @@ export function AnswerSummary({ question, answer, text }: AnswerSummaryProps) {
   if (question.type === 'MC') {
     const selectedIds = answer?.type === 'MC' ? answer.optionIds : []
     return (
-      <Checkbox.Group aria-label={label} value={selectedIds}>
+      <Checkbox.Group dir={getTextDirection(question.label)} aria-label={label} value={selectedIds}>
         <Stack gap="xs">
           {question.options.map((option) => (
             <Checkbox key={option.id} disabled value={option.id} label={<span dir="auto">{option.label}</span>} />
