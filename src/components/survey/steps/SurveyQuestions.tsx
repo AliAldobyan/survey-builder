@@ -1,5 +1,6 @@
 import { useCallback, useRef, useState } from 'react'
 import { Button, Group, Stack, Text } from '@mantine/core'
+import { useReducedMotion } from '@mantine/hooks'
 import type { SurveyWizardText } from '../../../i18n/translations'
 import { useAppDispatch, useAppSelector } from '../../../store/hooks'
 import { addQuestion, updateQuestion, removeQuestion, moveQuestion } from '../../../store/surveySlice'
@@ -27,6 +28,8 @@ export function SurveyQuestions({ text, errors }: SurveyQuestionsProps) {
   const questions = useAppSelector((state) => state.survey.questions)
   const dispatch = useAppDispatch()
   const questionCards = useRef(new Map<string, HTMLElement>())
+  const removingIds = useRef(new Set<string>())
+  const reducedMotion = useReducedMotion()
   const addButton = useRef<HTMLButtonElement>(null)
   const questionTypes = getQuestionTypes(text)
 
@@ -49,12 +52,33 @@ export function SurveyQuestions({ text, errors }: SurveyQuestionsProps) {
     else questionCards.current.delete(id)
   }, [])
 
-  function handleRemove(id: string, index: number) {
+  async function handleRemove(id: string, index: number) {
+    if (removingIds.current.has(id)) return
+    removingIds.current.add(id)
     const nextFocusId = questions[index + 1]?.id ?? questions[index - 1]?.id
+    const card = questionCards.current.get(id)
+
+    if (card && !reducedMotion) {
+      // Keep the card mounted until its space has collapsed.
+      card.inert = true
+      card.style.overflow = 'hidden'
+      const animation = card.animate([
+        { height: `${card.getBoundingClientRect().height}px`, opacity: 1, marginBlockEnd: '0px' },
+        { height: '0px', opacity: 0, marginBlockEnd: 'calc(-1 * var(--mantine-spacing-md))' },
+      ], { duration: 180, easing: 'ease-in', fill: 'forwards' })
+      try {
+        await animation.finished
+      } catch {
+        // Navigation may cancel an animation before it finishes.
+      }
+    }
+
     dispatch(removeQuestion(id))
+    removingIds.current.delete(id)
     // Keep keyboard focus in the list, or return it to Add when the list is empty.
     requestAnimationFrame(() => {
-      if (nextFocusId) questionCards.current.get(nextFocusId)?.focus()
+      const nextCard = nextFocusId ? questionCards.current.get(nextFocusId) : undefined
+      if (nextCard && !nextCard.inert) nextCard.focus()
       else addButton.current?.focus()
     })
   }

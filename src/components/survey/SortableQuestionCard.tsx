@@ -43,7 +43,7 @@ export function SortableQuestionCard({
       aria-label={`${questionName}: ${question.label || text.untitledQuestion}`}
       ref={setCardRef}
     >
-      <Paper withBorder p="md" radius="md" shadow={isDragging ? 'md' : undefined}>
+      <Paper className={classes.card} withBorder p="md" radius="md" shadow={isDragging ? 'md' : undefined}>
         <Stack gap="sm">
           <Group justify="space-between" gap="xs">
             <Group gap="xs">

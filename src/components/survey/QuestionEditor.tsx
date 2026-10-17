@@ -1,3 +1,6 @@
+import { useState } from 'react'
+import { useReducedMotion } from '@mantine/hooks'
+import classes from './QuestionEditor.module.css'
 import { getTextDirection } from '../../utils/getTextDirection'
 import { TrashIcon } from '@radix-ui/react-icons'
 import { ActionIcon, Button, Checkbox, Fieldset, Group, Stack, Text, TextInput, Tooltip, useDirection } from '@mantine/core'
@@ -14,6 +17,20 @@ type QuestionEditorProps = {
 
 export function QuestionEditor({ question, text, onChange, labelError, optionsError }: QuestionEditorProps) {
   const { dir } = useDirection()
+  const reducedMotion = useReducedMotion()
+  const [removingIds, setRemovingIds] = useState<string[]>([])
+
+  function removeOption(id: string) {
+    if (!('options' in question)) return
+    const index = question.options.findIndex((option) => option.id === id)
+    const nextId = question.options[index + 1]?.id ?? question.options[index - 1]?.id
+    onChange({ ...question, options: question.options.filter((option) => option.id !== id) })
+    setRemovingIds((ids) => ids.filter((item) => item !== id))
+    requestAnimationFrame(() => {
+      const target = nextId ? `question-option-${nextId}` : `add-option-${question.id}`
+      document.getElementById(target)?.focus()
+    })
+  }
 
   return (
     <Stack>
@@ -39,7 +56,16 @@ export function QuestionEditor({ question, text, onChange, labelError, optionsEr
         <Fieldset legend={text.options}>
           <Stack>
             {question.options.map((option, index) => (
-              <Group key={option.id} align="end">
+              <div
+                key={option.id}
+                className={classes.option}
+                data-removing={removingIds.includes(option.id) || undefined}
+                inert={removingIds.includes(option.id)}
+                onAnimationEnd={(event) => {
+                  if (event.target === event.currentTarget && removingIds.includes(option.id)) removeOption(option.id)
+                }}
+              >
+              <Group align="end" className={classes.optionContent}>
                 <TextInput
                   id={`question-option-${option.id}`}
                   label={`${text.option} ${index + 1}`}
@@ -63,15 +89,16 @@ export function QuestionEditor({ question, text, onChange, labelError, optionsEr
                     color="red"
                     size="lg"
                     aria-label={`${text.removeOption} ${index + 1}`}
-                    onClick={() => onChange({
-                      ...question,
-                      options: question.options.filter((item) => item.id !== option.id),
-                    })}
+                    onClick={() => {
+                      if (reducedMotion) removeOption(option.id)
+                      else setRemovingIds((ids) => [...ids, option.id])
+                    }}
                   >
                     <TrashIcon width={18} height={18} aria-hidden="true" />
                   </ActionIcon>
                 </Tooltip>
               </Group>
+              </div>
             ))}
             {optionsError && <Text c="red" size="sm" role="alert">{optionsError}</Text>}
             <Button

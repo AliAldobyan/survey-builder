@@ -1,0 +1,33 @@
+.option {
+  display: grid;
+  grid-template-rows: 1fr;
+  animation: option-enter 180ms ease-out;
+}
+
+.optionContent {
+  min-height: 0;
+}
+
+.option[data-removing] {
+  overflow: hidden;
+  animation: option-exit 180ms ease-in forwards;
+}
+
+.option[data-removing] .optionContent {
+  overflow: hidden;
+}
+
+@keyframes option-enter {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes option-exit {
+  from { grid-template-rows: 1fr; opacity: 1; margin-block-end: 0; }
+  to { grid-template-rows: 0fr; opacity: 0; margin-block-end: calc(-1 * var(--mantine-spacing-md)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .option { animation: none; }
+  .option[data-removing] { animation: option-exit 1ms forwards; }
+}
