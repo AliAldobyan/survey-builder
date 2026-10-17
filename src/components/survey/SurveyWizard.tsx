@@ -3,6 +3,7 @@ import { Button, Group, Stack, Stepper, Text } from '@mantine/core'
 import { useMediaQuery } from '@mantine/hooks'
 import { useSurveySettingsForm } from './useSurveySettingsForm'
 import { SurveySettings } from './steps/SurveySettings'
+import { SurveyQuestions } from './steps/SurveyQuestions'
 import type { SurveyWizardText } from '../../i18n/translations'
 
 type SurveyWizardProps = {
@@ -66,6 +67,8 @@ export function SurveyWizard({ text }: SurveyWizardProps) {
         {activeStep === 0 && (
           <SurveySettings text={text} form={settingsForm} />
         )}
+
+        {activeStep === 1 && <SurveyQuestions text={text} />}
 
         <Group justify="space-between">
           <Button

@@ -25,3 +25,5 @@ type AttachmentQuestion = BaseQuestion & {
 
 // The type determines which additional fields a question needs.
 export type SurveyQuestion = ChoiceQuestion | TextQuestion | AttachmentQuestion
+
+export type QuestionType = SurveyQuestion['type']
