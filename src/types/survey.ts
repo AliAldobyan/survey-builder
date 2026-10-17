@@ -42,3 +42,15 @@ export type SurveyAnswer =
   | { type: 'DDL' | 'RADIO'; optionId: string }
   | { type: 'MC'; optionIds: string[] }
   | { type: 'ATTACHMENT'; file: AttachmentMetadata }
+
+export type SurveySettings = {
+  title: string
+  description: string
+  confirmationMessage: string
+}
+
+export type SurveySubmission = {
+  settings: SurveySettings
+  questions: SurveyQuestion[]
+  answers: Record<string, SurveyAnswer>
+}

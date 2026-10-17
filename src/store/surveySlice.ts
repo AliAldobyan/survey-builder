@@ -1,12 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import type { AttachmentMetadata, SurveyAnswer, SurveyQuestion } from '../types/survey'
+import type { AttachmentMetadata, SurveyAnswer, SurveyQuestion, SurveySettings } from '../types/survey'
 
-export type SurveySettings = {
-  title: string
-  description: string
-  confirmationMessage: string
-}
+export type { SurveySettings } from '../types/survey'
 
 type SurveyState = {
   settings: SurveySettings
