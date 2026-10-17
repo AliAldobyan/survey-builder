@@ -13,7 +13,7 @@ npm ci
 npm run dev
 ```
 
-Open the local URL shown in the terminal. The mock API runs with Vite and does not persist submitted surveys. Attachments stay in browser memory; submission sends their metadata.
+Open the local URL shown in the terminal. The mock API runs through Vite locally and a browser service worker in the deployed demo. Submitted surveys are not persisted. Attachments stay in browser memory; submission sends their metadata.
 
 ## Project structure
 

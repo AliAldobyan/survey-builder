@@ -3,7 +3,8 @@ import { defineConfig } from 'vite'
 import { mockSurveyApi } from './mocks/surveyApi.ts'
 
 // https://vite.dev/config/
-export default defineConfig({
+export default defineConfig(({ command }) => ({
+  base: command === 'build' ? '/survey-builder/' : '/',
   plugins: [react(), mockSurveyApi()],
   build: {
     rolldownOptions: {
@@ -14,4 +15,4 @@ export default defineConfig({
       },
     },
   },
-})
+}))

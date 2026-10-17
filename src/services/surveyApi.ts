@@ -7,7 +7,7 @@ type SubmissionResult = {
 
 export const surveyApi = createApi({
   reducerPath: 'surveyApi',
-  baseQuery: fetchBaseQuery({ baseUrl: '/api/' }),
+  baseQuery: fetchBaseQuery({ baseUrl: `${import.meta.env.BASE_URL}api/` }),
   endpoints: (builder) => ({
     getSurveyTemplates: builder.query<SurveyTemplate[], void>({
       query: () => 'survey-templates',

@@ -3,8 +3,8 @@ import { useComputedColorScheme } from '@mantine/core'
 export function BrandLogo({ width = 170 }: { width?: number }) {
   const colorScheme = useComputedColorScheme('light')
   const logo = colorScheme === 'dark'
-    ? '/brand/channels-by-stc-white.png'
-    : '/brand/channels-by-stc.webp'
+    ? `${import.meta.env.BASE_URL}brand/channels-by-stc-white.png`
+    : `${import.meta.env.BASE_URL}brand/channels-by-stc.webp`
 
   return (
     <img
