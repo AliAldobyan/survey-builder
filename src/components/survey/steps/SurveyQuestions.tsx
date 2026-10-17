@@ -2,9 +2,10 @@ import { useState } from 'react'
 import { Badge, Button, Group, NativeSelect, Paper, Stack, Text } from '@mantine/core'
 import type { SurveyWizardText } from '../../../i18n/translations'
 import { useAppDispatch, useAppSelector } from '../../../store/hooks'
-import { addQuestion } from '../../../store/surveySlice'
+import { addQuestion, updateQuestion } from '../../../store/surveySlice'
 import type { QuestionType } from '../../../types/survey'
 import { createQuestion } from '../createQuestion'
+import { QuestionEditor } from '../QuestionEditor'
 
 type SurveyQuestionsProps = {
   text: SurveyWizardText
@@ -52,7 +53,11 @@ export function SurveyQuestions({ text }: SurveyQuestionsProps) {
                     {questionTypes.find((item) => item.value === question.type)?.label}
                   </Badge>
                 </Group>
-                <Text fw={500} dir="auto">{question.label || text.untitledQuestion}</Text>
+                <QuestionEditor
+                  question={question}
+                  text={text}
+                  onChange={(updatedQuestion) => dispatch(updateQuestion(updatedQuestion))}
+                />
               </Stack>
             </Paper>
           ))}
