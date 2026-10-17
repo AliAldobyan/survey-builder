@@ -12,13 +12,14 @@ type SortableQuestionCardProps = {
   index: number
   typeLabel: string
   text: SurveyWizardText
+  error?: string
   onEdit: () => void
   onRemove: () => void
   registerCard: (id: string, node: HTMLElement | null) => void
 }
 
 export function SortableQuestionCard({
-  question, index, typeLabel, text, onEdit, onRemove, registerCard,
+  question, index, typeLabel, text, error, onEdit, onRemove, registerCard,
 }: SortableQuestionCardProps) {
   const reducedMotion = useReducedMotion()
   const { ref, handleRef, isDragging } = useSortable({
@@ -77,7 +78,9 @@ export function SortableQuestionCard({
               </Tooltip>
             </Group>
           </Group>
-          <QuestionAnswer question={question} text={text} />
+          <div id={`answer-field-${question.id}`} tabIndex={-1}>
+            <QuestionAnswer question={question} text={text} error={error} />
+          </div>
         </Stack>
       </Paper>
     </li>

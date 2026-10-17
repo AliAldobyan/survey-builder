@@ -8,6 +8,7 @@ import { createQuestion } from '../createQuestion'
 import { SortableQuestionCard } from '../SortableQuestionCard'
 import { QuestionModal } from '../QuestionModal'
 import { getQuestionTypes } from '../questionTypes'
+import type { AnswerErrors } from '../validateAnswers'
 import { DragDropProvider } from '@dnd-kit/react'
 import type { DragEndEvent } from '@dnd-kit/react'
 import { isSortable } from '@dnd-kit/react/sortable'
@@ -15,9 +16,10 @@ import { Accessibility } from '@dnd-kit/dom'
 
 type SurveyQuestionsProps = {
   text: SurveyWizardText
+  errors: AnswerErrors
 }
 
-export function SurveyQuestions({ text }: SurveyQuestionsProps) {
+export function SurveyQuestions({ text, errors }: SurveyQuestionsProps) {
   const [editor, setEditor] = useState<{
     question: SurveyQuestion
     editing: boolean
@@ -92,6 +94,7 @@ export function SurveyQuestions({ text }: SurveyQuestionsProps) {
                   index={index}
                   typeLabel={questionTypes.find((item) => item.value === question.type)?.label ?? ''}
                   text={text}
+                  error={errors[question.id] ? text.answerRequiredError : undefined}
                   onEdit={() => setEditor({ question, editing: true })}
                   onRemove={() => handleRemove(question.id, index)}
                   registerCard={registerCard}

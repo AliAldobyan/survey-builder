@@ -4,6 +4,9 @@ import { useMediaQuery } from '@mantine/hooks'
 import { useSurveySettingsForm } from './useSurveySettingsForm'
 import { SurveySettings } from './steps/SurveySettings'
 import { SurveyQuestions } from './steps/SurveyQuestions'
+import { useAppSelector } from '../../store/hooks'
+import { useSurveyFiles } from './attachments/useSurveyFiles'
+import { validateAnswers } from './validateAnswers'
 import type { SurveyWizardText } from '../../i18n/translations'
 
 type SurveyWizardProps = {
@@ -13,6 +16,10 @@ type SurveyWizardProps = {
 export function SurveyWizard({ text }: SurveyWizardProps) {
   const [activeStep, setActiveStep] = useState(0)
   const settingsForm = useSurveySettingsForm()
+  const [showAnswerErrors, setShowAnswerErrors] = useState(false)
+  const { questions, answers } = useAppSelector((state) => state.survey)
+  const files = useSurveyFiles()
+  const answerErrors = showAnswerErrors ? validateAnswers(questions, answers, files) : {}
   const isSmallScreen = useMediaQuery('(max-width: 36em)')
   const steps = [
     { label: text.settings, description: text.settingsPlaceholder },
@@ -29,6 +36,19 @@ export function SurveyWizard({ text }: SurveyWizardProps) {
         // Move keyboard focus to the first field that needs attention.
         const firstInvalidField = Object.keys(result.errors)[0]
         settingsForm.getInputNode(firstInvalidField)?.focus()
+        return
+      }
+    }
+
+    if (activeStep === 1 && nextStep > 1) {
+      const errors = validateAnswers(questions, answers, files)
+      setShowAnswerErrors(true)
+      const firstInvalidQuestion = questions.find((question) => errors[question.id])
+      if (firstInvalidQuestion) {
+        const field = document.getElementById(`answer-field-${firstInvalidQuestion.id}`)
+        const input = field?.querySelector<HTMLElement>('input:not([type="hidden"]):not([type="file"]), textarea, select, button')
+        const target = input ?? field
+        target?.focus()
         return
       }
     }
@@ -68,7 +88,7 @@ export function SurveyWizard({ text }: SurveyWizardProps) {
           <SurveySettings text={text} form={settingsForm} />
         )}
 
-        {activeStep === 1 && <SurveyQuestions text={text} />}
+        {activeStep === 1 && <SurveyQuestions text={text} errors={answerErrors} />}
 
         <Group justify="space-between">
           <Button

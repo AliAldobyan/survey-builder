@@ -12,9 +12,10 @@ type AttachmentInputProps = {
   label: string
   required: boolean
   text: SurveyWizardText
+  validationError?: string
 }
 
-export function AttachmentInput({ questionId, label, required, text }: AttachmentInputProps) {
+export function AttachmentInput({ questionId, label, required, text, validationError }: AttachmentInputProps) {
   const answer = useAppSelector((state) => state.survey.answers[questionId])
   const dispatch = useAppDispatch()
   const files = useSurveyFiles()
@@ -57,7 +58,7 @@ export function AttachmentInput({ questionId, label, required, text }: Attachmen
         onChange={handleChange}
         clearable
         clearButtonProps={{ 'aria-label': text.removeFile }}
-        error={error === 'type' ? text.fileTypeError : error === 'size' ? text.fileSizeError : undefined}
+        error={error === 'type' ? text.fileTypeError : error === 'size' ? text.fileSizeError : validationError}
       />
       {file && metadata && (
         <Group align="start">

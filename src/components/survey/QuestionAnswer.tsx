@@ -8,9 +8,10 @@ import { AttachmentInput } from './attachments/AttachmentInput'
 type QuestionAnswerProps = {
   question: SurveyQuestion
   text: SurveyWizardText
+  error?: string
 }
 
-export function QuestionAnswer({ question, text }: QuestionAnswerProps) {
+export function QuestionAnswer({ question, text, error }: QuestionAnswerProps) {
   const answer = useAppSelector((state) => state.survey.answers[question.id])
   const dispatch = useAppDispatch()
   const label = question.label || text.untitledQuestion
@@ -21,6 +22,7 @@ export function QuestionAnswer({ question, text }: QuestionAnswerProps) {
       <Textarea
         label={label}
         required={question.required}
+        error={error}
         placeholder={question.placeholder}
         value={value}
         onChange={(event) => dispatch(setTextAnswer({
@@ -34,6 +36,7 @@ export function QuestionAnswer({ question, text }: QuestionAnswerProps) {
       <TextInput
         label={label}
         required={question.required}
+        error={error}
         placeholder={question.placeholder}
         value={value}
         onChange={(event) => dispatch(setTextAnswer({
@@ -50,6 +53,7 @@ export function QuestionAnswer({ question, text }: QuestionAnswerProps) {
         name={`answer-${question.id}`}
         label={label}
         required={question.required}
+        error={error}
         value={answer?.type === 'RADIO' ? answer.optionId : ''}
         onChange={(optionId) => dispatch(setSingleChoiceAnswer({ questionId: question.id, optionId }))}
       >
@@ -67,6 +71,7 @@ export function QuestionAnswer({ question, text }: QuestionAnswerProps) {
       <NativeSelect
         label={label}
         required={question.required}
+        error={error}
         value={answer?.type === 'DDL' ? answer.optionId : ''}
         data={[
           { value: '', label: text.selectAnswer },
@@ -84,6 +89,7 @@ export function QuestionAnswer({ question, text }: QuestionAnswerProps) {
       <Checkbox.Group
         label={label}
         required={question.required}
+        error={error}
         value={answer?.type === 'MC' ? answer.optionIds : []}
         onChange={(optionIds) => dispatch(setMultipleChoiceAnswer({ questionId: question.id, optionIds }))}
       >
@@ -97,6 +103,6 @@ export function QuestionAnswer({ question, text }: QuestionAnswerProps) {
   }
 
   return (
-    <AttachmentInput questionId={question.id} label={label} required={question.required} text={text} />
+    <AttachmentInput questionId={question.id} label={label} required={question.required} text={text} validationError={error} />
   )
 }
