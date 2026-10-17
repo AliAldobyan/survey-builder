@@ -14,8 +14,8 @@
 .responses {
   min-width: 0;
   overflow: hidden;
-  background: var(--mantine-color-white);
-  border: 1px solid var(--mantine-color-gray-3);
+  background: var(--mantine-color-body);
+  border: 1px solid var(--mantine-color-default-border);
   border-block-start: 4px solid var(--mantine-color-brand-6);
   border-radius: var(--mantine-radius-md);
   box-shadow: 0 6px 24px rgb(29 37 45 / 5%);
@@ -23,7 +23,7 @@
 
 .formHeader {
   padding: 28px;
-  border-block-end: 1px solid var(--mantine-color-gray-2);
+  border-block-end: 1px solid var(--mantine-color-default-border);
 }
 
 .title {
@@ -32,7 +32,7 @@
 }
 
 .description {
-  color: var(--mantine-color-gray-7);
+  color: var(--mantine-color-dimmed);
   white-space: pre-wrap;
   overflow-wrap: anywhere;
 }
@@ -49,7 +49,7 @@
 }
 
 .row + .row {
-  border-block-start: 1px solid var(--mantine-color-gray-2);
+  border-block-start: 1px solid var(--mantine-color-default-border);
 }
 
 .required {
@@ -80,14 +80,14 @@
 .readonlyFields [data-disabled] {
   opacity: 1;
   cursor: default;
-  color: var(--mantine-color-gray-8);
+  color: var(--mantine-color-text);
 }
 
 .sidebar {
   padding: 20px;
-  border: 1px solid var(--mantine-color-brand-1);
+  border: 1px solid var(--mantine-color-default-border);
   border-radius: var(--mantine-radius-md);
-  background: var(--mantine-color-brand-0);
+  background: var(--mantine-color-brand-light);
   min-width: 0;
 }
 

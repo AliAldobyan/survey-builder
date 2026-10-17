@@ -1,8 +1,9 @@
-import { Badge, Button, Container, Paper, Stack, Text, Title } from '@mantine/core'
+import { Badge, Button, Container, Group, Paper, Stack, Text, Title } from '@mantine/core'
 import { SurveyWizard } from '../components/survey/SurveyWizard'
 import { SurveyFilesProvider } from '../components/survey/attachments/SurveyFilesProvider'
 import { useLanguage } from '../i18n/useLanguage'
 import { BrandLogo } from '../components/BrandLogo'
+import { ThemeToggle } from '../components/ThemeToggle'
 import classes from './App.module.css'
 
 function App() {
@@ -13,6 +14,8 @@ function App() {
     <Container size="md" py="xl">
       <header className={classes.header}>
         <BrandLogo />
+        <Group gap="xs" wrap="nowrap">
+        <ThemeToggle lightLabel={text.lightTheme} darkLabel={text.darkTheme} />
         <Button
           variant="default"
           size="sm"
@@ -22,6 +25,7 @@ function App() {
         >
           {text.switchLanguage}
         </Button>
+        </Group>
       </header>
       <Paper component="main" withBorder p="xl" radius="md">
         <Stack>

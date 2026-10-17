@@ -6,3 +6,8 @@
   margin-block-end: 24px;
   direction: ltr;
 }
+
+@media (max-width: 400px) {
+  .header { gap: 8px; }
+  .header > img { width: 130px; }
+}

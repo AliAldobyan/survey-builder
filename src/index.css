@@ -2,3 +2,11 @@ body {
   min-width: 320px;
   min-height: 100vh;
 }
+
+:root {
+  --survey-brand-text: var(--mantine-color-brand-6);
+}
+
+:root[data-mantine-color-scheme='dark'] {
+  --survey-brand-text: var(--mantine-color-brand-2);
+}

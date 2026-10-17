@@ -1,23 +1,23 @@
 .tabList {
   gap: 4px;
   padding: 4px;
-  border: 1px solid var(--mantine-color-gray-3);
+  border: 1px solid var(--mantine-color-default-border);
   border-radius: var(--mantine-radius-md);
 }
 
 .tab {
   min-height: 44px;
   padding-inline: 12px;
-  color: var(--mantine-color-gray-7);
+  color: var(--mantine-color-text);
   font-weight: 500;
 }
 
 .tab[data-active] {
-  background: var(--mantine-color-brand-1);
-  color: var(--mantine-color-brand-6);
+  background: var(--mantine-color-brand-light);
+  color: var(--survey-brand-text);
   font-weight: 700;
 }
 
 .tab[data-active]:hover {
-  background: var(--mantine-color-brand-1);
+  background: var(--mantine-color-brand-light);
 }

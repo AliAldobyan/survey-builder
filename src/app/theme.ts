@@ -11,7 +11,7 @@ const fontFamily = 'Arial, Helvetica, sans-serif'
 
 export const theme = createTheme({
   primaryColor: 'brand',
-  primaryShade: 6,
+  primaryShade: { light: 6, dark: 3 },
   colors: {
     brand: [
       '#f7f0fc',

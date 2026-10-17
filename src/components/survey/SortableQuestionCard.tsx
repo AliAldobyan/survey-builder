@@ -1,3 +1,4 @@
+import { DragHandleDots2Icon, Pencil1Icon, TrashIcon } from '@radix-ui/react-icons'
 import { useCallback } from 'react'
 import { useSortable } from '@dnd-kit/react/sortable'
 import { useReducedMotion } from '@mantine/hooks'
@@ -51,11 +52,7 @@ export function SortableQuestionCard({
                 aria-label={`${text.dragQuestion}: ${questionName}`}
                 style={{ cursor: isDragging ? 'grabbing' : 'grab', touchAction: 'none' }}
               >
-                <svg width="18" height="18" viewBox="0 0 18 18" fill="currentColor" aria-hidden="true">
-                  {[5, 9, 13].map((y) => (
-                    <g key={y}><circle cx="6" cy={y} r="1.3" /><circle cx="12" cy={y} r="1.3" /></g>
-                  ))}
-                </svg>
+                <DragHandleDots2Icon width={18} height={18} aria-hidden="true" />
               </ActionIcon>
               <Text size="sm" c="dimmed">{questionName}</Text>
               <Badge variant="light" size="sm">{typeLabel}</Badge>
@@ -64,16 +61,12 @@ export function SortableQuestionCard({
             <Group gap={4}>
               <Tooltip label={text.editQuestion}>
                 <ActionIcon type="button" variant="subtle" size="lg" aria-label={`${text.editQuestion}: ${questionName}`} onClick={onEdit}>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true">
-                    <path d="m15 5 4 4M4 20l4-1L20 7a2.8 2.8 0 0 0-4-4L4 15z" />
-                  </svg>
+                  <Pencil1Icon width={18} height={18} aria-hidden="true" />
                 </ActionIcon>
               </Tooltip>
               <Tooltip label={text.removeQuestion}>
                 <ActionIcon type="button" variant="subtle" color="red" size="lg" aria-label={`${text.removeQuestion}: ${questionName}`} onClick={onRemove}>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true">
-                    <path d="M3 6h18M9 6V3h6v3M5 6l1 15h12l1-15M10 10v7m4-7v7" />
-                  </svg>
+                  <TrashIcon width={18} height={18} aria-hidden="true" />
                 </ActionIcon>
               </Tooltip>
             </Group>

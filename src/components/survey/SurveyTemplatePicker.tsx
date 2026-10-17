@@ -68,7 +68,7 @@ export function SurveyTemplatePicker({ text, language, onApplySettings }: Survey
             </Group>
           </>
         )}
-        {applied && <Text size="sm" c="brand.6" role="status">{text.templateApplied}</Text>}
+        {applied && <Text size="sm" c="var(--survey-brand-text)" role="status">{text.templateApplied}</Text>}
       </Stack>
       <Modal opened={confirmOpen} onClose={() => setConfirmOpen(false)} title={text.replaceQuestionsTitle} centered>
         <Stack>

@@ -1,3 +1,4 @@
+import { CheckIcon } from '@radix-ui/react-icons'
 import { useRef, useState } from 'react'
 import { Alert, Button, Group, Paper, Stack, Stepper, Text, ThemeIcon, Title } from '@mantine/core'
 import { useMediaQuery } from '@mantine/hooks'
@@ -96,11 +97,9 @@ export function SurveyWizard({ text, language }: SurveyWizardProps) {
       <Paper withBorder px="xl" py={48} radius="md" role="status">
         <Stack gap="md" align="center" ta="center" maw={480} mx="auto">
           <ThemeIcon size={80} radius="50%" variant="light" color="brand" aria-hidden="true">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" focusable="false">
-              <path d="m5 12 4 4L19 6" />
-            </svg>
+            <CheckIcon width={40} height={40} aria-hidden="true" />
           </ThemeIcon>
-          <Title order={2} size="h3" c="brand.6">{text.submissionSuccess}</Title>
+          <Title order={2} size="h3" c="var(--survey-brand-text)">{text.submissionSuccess}</Title>
           <Text dir="auto" c="dimmed" style={{ whiteSpace: 'pre-wrap', overflowWrap: 'anywhere' }}>
             {settings.confirmationMessage.trim() || text.submissionSuccessMessage}
           </Text>
@@ -160,7 +159,6 @@ export function SurveyWizard({ text, language }: SurveyWizardProps) {
         {submission.isError && (
           <Alert color="red" role="alert">{text.submissionError}</Alert>
         )}
-        {submission.isLoading && <Text size="sm" role="status">{text.submitting}</Text>}
 
         <Group justify="space-between">
           <Button

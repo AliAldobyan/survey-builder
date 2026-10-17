@@ -33,7 +33,7 @@ export function SurveySettings({ text, form, language }: SurveySettingsProps) {
 
       <Tabs.Panel value="build">
         <Stack>
-          {templateApplied && <Text size="sm" c="brand.6" role="status">{text.templateApplied}</Text>}
+          {templateApplied && <Text size="sm" c="var(--survey-brand-text)" role="status">{text.templateApplied}</Text>}
           <TextInput
             label={text.surveyTitle}
             required

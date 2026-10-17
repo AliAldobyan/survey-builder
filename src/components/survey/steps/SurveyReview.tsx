@@ -61,7 +61,7 @@ export function SurveyReview({ text, onEditSettings, onEditQuestions }: SurveyRe
 
         <aside className={classes.sidebar}>
           <Stack gap="xs">
-            <Title order={3} size="h5" c="brand.6">{text.confirmationMessage}</Title>
+            <Title order={3} size="h5" c="var(--survey-brand-text)">{text.confirmationMessage}</Title>
             <Text size="xs" c="dimmed">{text.confirmationMessageHint}</Text>
           </Stack>
           <Text component="blockquote" dir="auto" size="sm" className={classes.message}>

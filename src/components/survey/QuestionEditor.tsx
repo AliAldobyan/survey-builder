@@ -1,3 +1,4 @@
+import { TrashIcon } from '@radix-ui/react-icons'
 import { ActionIcon, Button, Checkbox, Fieldset, Group, Stack, Text, TextInput, Tooltip } from '@mantine/core'
 import type { SurveyWizardText } from '../../i18n/translations'
 import type { SurveyQuestion } from '../../types/survey'
@@ -64,9 +65,7 @@ export function QuestionEditor({ question, text, onChange, labelError, optionsEr
                       options: question.options.filter((item) => item.id !== option.id),
                     })}
                   >
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true">
-                      <path d="M3 6h18M9 6V3h6v3M5 6l1 15h12l1-15M10 10v7m4-7v7" />
-                    </svg>
+                    <TrashIcon width={18} height={18} aria-hidden="true" />
                   </ActionIcon>
                 </Tooltip>
               </Group>
