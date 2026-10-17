@@ -1,28 +1,31 @@
-import { Badge, Button, Container, Group, Paper, Stack, Text, Title } from '@mantine/core'
+import { Badge, Button, Container, Paper, Stack, Text, Title } from '@mantine/core'
 import { SurveyWizard } from '../components/survey/SurveyWizard'
 import { SurveyFilesProvider } from '../components/survey/attachments/SurveyFilesProvider'
 import { useLanguage } from '../i18n/useLanguage'
+import { BrandLogo } from '../components/BrandLogo'
+import classes from './App.module.css'
 
 function App() {
   const { language, setLanguage, text } = useLanguage()
   const nextLanguage = language === 'en' ? 'ar' : 'en'
 
   return (
-    <Container component="main" size="md" py="xl">
-      <Paper withBorder p="xl" radius="md">
+    <Container size="md" py="xl">
+      <header className={classes.header}>
+        <BrandLogo />
+        <Button
+          variant="default"
+          size="sm"
+          lang={nextLanguage}
+          dir={nextLanguage === 'ar' ? 'rtl' : 'ltr'}
+          onClick={() => setLanguage(nextLanguage)}
+        >
+          {text.switchLanguage}
+        </Button>
+      </header>
+      <Paper component="main" withBorder p="xl" radius="md">
         <Stack>
-          <Group justify="space-between">
-            <Badge variant="light">{text.surveyConfiguration}</Badge>
-            <Button
-              variant="default"
-              size="sm"
-              lang={nextLanguage}
-              dir={nextLanguage === 'ar' ? 'rtl' : 'ltr'}
-              onClick={() => setLanguage(nextLanguage)}
-            >
-              {text.switchLanguage}
-            </Button>
-          </Group>
+          <Badge variant="light">{text.surveyConfiguration}</Badge>
           <Title order={1}>{text.surveyBuilder}</Title>
           <Text c="dimmed">{text.description}</Text>
           <SurveyFilesProvider>

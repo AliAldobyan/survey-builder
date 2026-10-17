@@ -1,0 +1,111 @@
+.root {
+  container-type: inline-size;
+}
+
+.previewToolbar {
+  margin-block-end: 16px;
+}
+
+.columns {
+  display: grid;
+  gap: 20px;
+}
+
+.responses {
+  min-width: 0;
+  overflow: hidden;
+  background: var(--mantine-color-white);
+  border: 1px solid var(--mantine-color-gray-3);
+  border-block-start: 4px solid var(--mantine-color-brand-6);
+  border-radius: var(--mantine-radius-md);
+  box-shadow: 0 6px 24px rgb(29 37 45 / 5%);
+}
+
+.formHeader {
+  padding: 28px;
+  border-block-end: 1px solid var(--mantine-color-gray-2);
+}
+
+.title {
+  margin-block: 24px 8px;
+  overflow-wrap: anywhere;
+}
+
+.description {
+  color: var(--mantine-color-gray-7);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.list {
+  margin: 0;
+  padding: 4px 0;
+  list-style: none;
+}
+
+.row {
+  display: grid;
+  padding: 24px 28px;
+}
+
+.row + .row {
+  border-block-start: 1px solid var(--mantine-color-gray-2);
+}
+
+.required {
+  color: var(--mantine-color-red-6);
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.question {
+  margin-block: 0 12px;
+  overflow-wrap: anywhere;
+}
+
+.readonlyFields {
+  min-width: 0;
+}
+
+/* Keep non-interactive review controls legible. */
+.readonlyFields :disabled,
+.readonlyFields [data-disabled] {
+  opacity: 1;
+  cursor: default;
+  color: var(--mantine-color-gray-8);
+}
+
+.sidebar {
+  padding: 20px;
+  border: 1px solid var(--mantine-color-brand-1);
+  border-radius: var(--mantine-radius-md);
+  background: var(--mantine-color-brand-0);
+  min-width: 0;
+}
+
+.message {
+  margin: 16px 0;
+  padding-inline-start: 12px;
+  border-inline-start: 3px solid var(--mantine-color-coral-6);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+@container (max-width: 420px) {
+  .formHeader {
+    padding: 20px;
+  }
+
+  .row {
+    padding: 20px 16px;
+    gap: 8px;
+  }
+}

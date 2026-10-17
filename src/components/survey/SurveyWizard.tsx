@@ -4,6 +4,7 @@ import { useMediaQuery } from '@mantine/hooks'
 import { useSurveySettingsForm } from './useSurveySettingsForm'
 import { SurveySettings } from './steps/SurveySettings'
 import { SurveyQuestions } from './steps/SurveyQuestions'
+import { SurveyReview } from './steps/SurveyReview'
 import { useAppSelector } from '../../store/hooks'
 import { useSurveyFiles } from './attachments/useSurveyFiles'
 import { validateAnswers } from './validateAnswers'
@@ -89,6 +90,14 @@ export function SurveyWizard({ text }: SurveyWizardProps) {
         )}
 
         {activeStep === 1 && <SurveyQuestions text={text} errors={answerErrors} />}
+
+        {activeStep === 2 && (
+          <SurveyReview
+            text={text}
+            onEditSettings={() => handleStepChange(0)}
+            onEditQuestions={() => handleStepChange(1)}
+          />
+        )}
 
         <Group justify="space-between">
           <Button
