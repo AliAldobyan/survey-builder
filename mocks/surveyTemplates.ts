@@ -129,7 +129,7 @@ export const surveyTemplates: SurveyTemplate[] = [
         "settings": {
           "title": "استبيان رضا العملاء",
           "description": "يسعدنا معرفة رأيك في تجربتك الأخيرة معنا.",
-          "confirmationMessage": "شكرًا لملاحظاتك ووقتك. نتطلع إلى خدمتك مجددًا."
+          "confirmationMessage": "شكرًا لمشاركة رأيك. نقدّر وقتك ونتطلع إلى خدمتك مجددًا."
         },
         "questions": [
           {
