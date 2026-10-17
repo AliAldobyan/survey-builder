@@ -1,17 +1,18 @@
 import { CheckIcon } from '@radix-ui/react-icons'
-import { useRef, useState } from 'react'
-import { Alert, Button, Group, Paper, Stack, Stepper, Text, ThemeIcon, Title } from '@mantine/core'
+import { lazy, Suspense, useRef, useState } from 'react'
+import { Alert, Button, Group, Loader, Paper, Stack, Stepper, Text, ThemeIcon, Title } from '@mantine/core'
 import { useMediaQuery } from '@mantine/hooks'
 import { useSurveySettingsForm } from './useSurveySettingsForm'
 import { SurveySettings } from './steps/SurveySettings'
-import { SurveyQuestions } from './steps/SurveyQuestions'
-import { SurveyReview } from './steps/SurveyReview'
 import { useAppSelector } from '../../store/hooks'
 import { useSurveyFiles } from './attachments/useSurveyFiles'
 import { validateAnswers } from './validateAnswers'
 import { buildSurveyPayload } from './buildSurveyPayload'
 import { useSubmitSurveyMutation } from '../../services/surveyApi'
 import type { Language, SurveyWizardText } from '../../i18n/translations'
+
+const SurveyQuestions = lazy(() => import('./steps/SurveyQuestions').then((module) => ({ default: module.SurveyQuestions })))
+const SurveyReview = lazy(() => import('./steps/SurveyReview').then((module) => ({ default: module.SurveyReview })))
 
 type SurveyWizardProps = {
   language: Language
@@ -50,16 +51,22 @@ export function SurveyWizard({ text, language }: SurveyWizardProps) {
       }
     }
 
-    if (activeStep === 1 && nextStep > 1) {
+    if (nextStep > 1) {
       const errors = validateAnswers(questions, answers, files)
       setShowAnswerErrors(true)
-      if (questions.length === 0) return
+      if (questions.length === 0) {
+        setActiveStep(1)
+        return
+      }
       const firstInvalidQuestion = questions.find((question) => errors[question.id])
       if (firstInvalidQuestion) {
-        const field = document.getElementById(`answer-field-${firstInvalidQuestion.id}`)
-        const input = field?.querySelector<HTMLElement>('input:not([type="hidden"]):not([type="file"]), textarea, select, button')
-        const target = input ?? field
-        target?.focus()
+        setActiveStep(1)
+        requestAnimationFrame(() => {
+          const field = document.getElementById(`answer-field-${firstInvalidQuestion.id}`)
+          const input = field?.querySelector<HTMLElement>('input:not([type="hidden"]):not([type="file"]), textarea, select, button')
+          const target = input ?? field
+          target?.focus()
+        })
         return
       }
     }
@@ -144,15 +151,21 @@ export function SurveyWizard({ text, language }: SurveyWizardProps) {
         {activeStep === 1 && showAnswerErrors && questions.length === 0 && (
           <Alert color="red" role="alert">{text.questionRequiredError}</Alert>
         )}
-        {activeStep === 1 && <SurveyQuestions text={text} errors={answerErrors} />}
+        {activeStep === 1 && (
+          <Suspense fallback={<Loader aria-label={text.questions} />}>
+            <SurveyQuestions text={text} errors={answerErrors} />
+          </Suspense>
+        )}
 
         {activeStep === 2 && (
           <fieldset disabled={submission.isLoading} style={{ border: 0, margin: 0, padding: 0, minWidth: 0 }}>
+          <Suspense fallback={<Loader aria-label={text.review} />}>
           <SurveyReview
             text={text}
             onEditSettings={() => handleStepChange(0)}
             onEditQuestions={() => handleStepChange(1)}
           />
+          </Suspense>
           </fieldset>
         )}
 
